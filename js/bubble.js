@@ -53,11 +53,12 @@
       d3.select(this).append("text")
         .attr("id", "label")
         .text(function(d) {
+          console.log(d);
           return d.name;
         })
         .style("font-size", "30px")
         .style("font-weight", "bold")
-        .style("fill", "black")
+        .style("fill", "gray")
         .style("stroke-width", 1)
         .style("stroke", "white");
     }
