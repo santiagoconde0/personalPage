@@ -7,6 +7,7 @@
   // Se crea el SVG
   var svg = d3.select("#skills")
     .append("svg")
+    .attr("id", "skillSVG")
     .attr("align", "center")
     .attr("width", width)
     .attr("height", height)
@@ -16,8 +17,8 @@
   // Set de las propiedades de la simulacion
   var simulation = d3.forceSimulation().velocityDecay(0.3)
     .force("charge", d3.forceManyBody().strength(900))
-    .force('collision', d3.forceCollide().radius(200))
-    .force("center", d3.forceCenter(width / 1.3, height / 1.3));
+    .force('collision', d3.forceCollide().radius(150))
+    .force("center", d3.forceCenter(width / 1.3, height / 1.8));
 
   // Llamar data de CSV
   d3.csv("data/softwares.csv").then(function(data) {
@@ -35,7 +36,7 @@
     var images = node.append("image")
       .attr("xlink:href", function(d) {
         return d.logo; //Crear Path de las imagens
-      }).attr("width", 155)
+      }).attr("width", 120)
       .call(d3.drag()
         .on("start", dragstarted)
         .on("drag", dragged)
@@ -48,7 +49,7 @@
 
       d3.select(this).select("image").transition()
         .duration(750)
-        .attr("width", 180);
+        .attr("width", 150);
 
       d3.select(this).append("text")
         .attr("id", "label")
@@ -67,7 +68,7 @@
       d3.select("#label").remove();
 
       images.transition()
-        .duration(5).attr("width", 155);
+        .duration(5).attr("width", 120);
     }
 
     // anadir titulso a las burbujas
@@ -87,6 +88,9 @@
         });
     }
   });
+
+  d3.select("#skillSVG")
+  .attr("height", "700");
 
   function dragstarted(d) {
     if (!d3.event.active) simulation.alphaTarget(0.3).restart();
